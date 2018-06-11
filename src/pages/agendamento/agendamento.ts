@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AgendamentoService } from '../../services/domain/agendamento.service';
 
 /**
  * Generated class for the AgendamentoPage page.
@@ -15,11 +16,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AgendamentoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public agendamentoService: AgendamentoService) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AgendamentoPage');
+    this.agendamentoService.findAll()
+    .subscribe(response =>{
+      console.log(response);
+    })
   }
-
+  
 }
