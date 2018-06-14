@@ -6,10 +6,13 @@
     </button>
     <ion-title>Profile</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-{{ email }}
+  <ion-avatar>
+    <img class="circle" [src]="paciente?.imageUrl || 'assets/imgs/logo.png'">
+  </ion-avatar>
+  <h2 text-center>{{paciente?.nome}}</h2>
+  <p text-center>{{paciente?.email}}</p>
 </ion-content>
