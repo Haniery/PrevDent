@@ -11,8 +11,8 @@ import { AuthService } from '../../services/auth.service';
 export class HomePage {
 
   creds : CredenciaisDTO = {
-    email: "",
-    senha: ""
+    username: "",
+    password: ""
   };
   
   constructor(
@@ -33,7 +33,7 @@ export class HomePage {
   login() {
     this.auth.authenticate(this.creds)
       .subscribe(response => {
-        this.auth.successfulLogin(response.headers.get('Authorization'));
+        this.auth.successfulLogin(response.body);
         this.navCtrl.setRoot('AgendamentoPage');
       },
     error => {});

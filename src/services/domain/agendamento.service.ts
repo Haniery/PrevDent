@@ -11,6 +11,6 @@ export class AgendamentoService {
     }
 
     findAll() : Observable<AgendamentoDTO[]> {
-        return this.http.get<AgendamentoDTO[]>(`${API_CONFIG.baseUrl}/agendamento`);
+        return this.http.get<AgendamentoDTO[]>(`${API_CONFIG.baseUrl}/agendas`);
     }
 }

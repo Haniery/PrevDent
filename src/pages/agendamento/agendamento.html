@@ -3,17 +3,17 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Agendamento</ion-title>
+    <ion-title>Agendamentos</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-list>
-    <button ion-item *.ngFor="let item of items">
+    <button ion-item *ngFor="let item of items">
       <ion-thumbnail item-start>
         <img src="{{bucketUrl}}/cat{{item.id}}.jpg">
       </ion-thumbnail>
-      <h2>{{ item.nome }}</h2>
+      <h2>{{ item.paciente.nome }}</h2>
     </button>
   </ion-list>
 </ion-content>
