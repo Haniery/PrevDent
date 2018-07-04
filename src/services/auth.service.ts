@@ -21,15 +21,15 @@ export class AuthService {
             creds,
             {
                 observe: 'response',
-                responseType: 'text'
+                responseType: 'json'
             });
     }
 
-    successfulLogin(authorizationValue : String) {
-        let tok = authorizationValue.substring(7);
+    successfulLogin(authorizationValue) {
+        let tok = authorizationValue.token;
         let user : LocalUser = {
             token : tok,
-            email: tok
+            email: authorizationValue.email
         };
         this.storage.setLocalUser(user);
     }
