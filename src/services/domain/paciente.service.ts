@@ -26,4 +26,15 @@ export class PacienteService {
         return this.http.get(url, {responseType : 'blob'});
     }
 
+    insert(obj : PacienteDTO) {
+        return this.http.post(
+            `${API_CONFIG.baseUrl}/pacientes`,
+            obj,
+            {
+                observe: 'response',
+                responseType: 'text'
+            }
+        )
+    }
+
 }
