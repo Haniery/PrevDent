@@ -22,20 +22,9 @@ export class SignupPage {
 
   this.formGroup = formBuilder.group({
     nome: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
-    email: ['', [Validators.required, Validators.email]],
-    tipo: ['', [Validators.required]],
-    cpfOuCnpj: ['', [Validators.required, Validators.minLength(11), Validators.maxLength(14)]],
-    password: ['', [Validators.required]],
-    logradouro: ['', [Validators.required]],
-    numero: ['', [Validators.required]],
-    complemento: ['', []],
-    bairro: ['', []],
-    cep: ['', [Validators.required]],
     telefone: ['', [Validators.required]],
-    telefone2: ['', []],
-    telefone3: ['', []],
-    estadoId: [null, [Validators.required]],
-    cidadeId: [null, [Validators.required]]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]]
   });
 
   }
@@ -43,7 +32,11 @@ export class SignupPage {
   signupUser() {
     this.pacienteService.insert(this.formGroup.value)
       .subscribe(response => {
-        this.showInsertOk();
+        if(response.status == 200){
+            this.showInsertOk();
+        } else {
+            this.showInsertError(response.body)
+        }
       },
     error => {});
   }
@@ -64,4 +57,21 @@ export class SignupPage {
     });
     alert.present();
   }
+
+    showInsertError(mensagem : String) {
+        let alert = this.alertCtrl.create({
+            title: 'Erro',
+            message: 'Não foi possível realizar seu cadastro: ' + mensagem,
+            enableBackdropDismiss: false,
+            buttons: [
+                {
+                    text: 'Ok',
+                    handler: () => {
+                        this.navCtrl.pop();
+                    }
+                }
+            ]
+        });
+        alert.present();
+    }
 }

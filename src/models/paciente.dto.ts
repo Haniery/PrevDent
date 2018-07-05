@@ -3,4 +3,5 @@ export interface PacienteDTO {
     nome : string;
     telefone : string;
     email: string;
+    imageUrl: string;
 }

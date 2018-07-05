@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AgendamentoService } from '../../services/domain/agendamento.service';
 import { AgendamentoDTO } from '../../models/agendamento.dto';
 import { API_CONFIG } from '../../config/api.config';
+import {StorageService} from "../../services/storage.service";
 
 /**
  * Generated class for the AgendamentoPage page.
@@ -25,14 +26,19 @@ export class AgendamentoPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public storage: StorageService,
     public agendamentoService: AgendamentoService) {
   }
 
   ionViewDidLoad() {
-    this.agendamentoService.findAll()
-    .subscribe(response =>{
-      this.items = response;
-    },
-    error => {});
+      let localUser = this.storage.getLocalUser();
+      if (localUser && localUser.email) {
+          this.agendamentoService.findByEmail(localUser.email)
+              .subscribe(response => {
+                      this.items = response;
+                  },
+                  error => {
+                  });
+      }
   }
 }

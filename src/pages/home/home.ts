@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, MenuController } from 'ionic-angular';
+import {NavController, IonicPage, MenuController, AlertController} from 'ionic-angular';
 import { CredenciaisDTO } from '../../models/credenciais.dto';
 import { AuthService } from '../../services/auth.service';
 
@@ -18,6 +18,7 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public menu: MenuController,
+    public alertCtrl: AlertController,
     public auth: AuthService) {
 
   }
@@ -33,13 +34,34 @@ export class HomePage {
   login() {
     this.auth.authenticate(this.creds)
       .subscribe(response => {
-        this.auth.successfulLogin(response.body);
-        this.navCtrl.setRoot('AgendamentoPage');
+        if(response.status == 200){
+            this.auth.successfulLogin(response.body);
+            this.navCtrl.setRoot('AgendamentoPage');
+        } else {
+            this.showLoginError(response.body.toString());
+        }
       },
     error => {});
   }
 
   signup() {
     this.navCtrl.push('SignupPage');
+  }
+
+  showLoginError(mensagem : String) {
+      let alert = this.alertCtrl.create({
+          title: 'Erro',
+          message: 'Não foi possível realizar seu login: ' + mensagem,
+          enableBackdropDismiss: false,
+          buttons: [
+              {
+                  text: 'Ok',
+                  handler: () => {
+                      this.navCtrl.pop();
+                  }
+              }
+          ]
+      });
+      alert.present();
   }
 }

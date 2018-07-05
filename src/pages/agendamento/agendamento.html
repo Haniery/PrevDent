@@ -16,5 +16,8 @@
       <h2>{{ item.data }} às {{ item.hora }}</h2>
       <p>{{ item.funcionario.cargo }}: {{ item.funcionario.nome }}</p>
     </button>
+    <button ion-item *ngIf="items?.length === 0">
+      <p>Você não possui consultas marcadas</p>
+    </button>
   </ion-list>
 </ion-content>
